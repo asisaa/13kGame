@@ -27,7 +27,7 @@ kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.
 
     var backgroundSprite2 = kontra.sprite({
       x: 0,
-      y: -256,
+      y: -320,
       image: background,
       dy: 1
     });
@@ -178,31 +178,30 @@ kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.
 
 
 /*
--_-_-_-_-_-_-_-_-_- COLLISOION _-_-_-_-_-_-_-_-_-
+-_-_-_-_-_-_-_-_-_- COLLISION _-_-_-_-_-_-_-_-_-
 */
 
 //Bouncing the sprite on the edgers of the canvas
 
-/*        if (red.y >= 206) {
-          red.y = 205,
-          red.dy = -2
+        if (player.x >= 320) {
+          player.x = 1;
         }
 
-        else if (red.y <= 0) {
-          red.y = 1,
-          red.dy = 3
+        else if (player.x <= 0) {
+          player.x = 319;
         }
 
-        if (red.x < 32) {
-          red.x = 32;
-          red.dx = Math.abs(rot.dx);
+        if (player.y >= 512) {
+          player.y = 1;
         }
 
-        else if (red.x > 200) {
-          red.x = 200;
-          red.dx = -Math.abs(rot.dx);
+        else if (player.y <= 0) {
+          player.y = 511;
         }
-*/
+
+
+
+
 //ITEM BEHAVIOUR
     items.forEach(function(item){
 
@@ -223,9 +222,9 @@ kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.
       }
 
 
-      if (item.y >= 256) {
-        item.x = Math.random() * 256;
-        item.y = (Math.random() * 256) - 256;
+      if (item.y >= 512) {
+        item.x = Math.random() * 320;
+        item.y = (Math.random() * 512) - 512;
       }
       item.update();
     });
@@ -251,37 +250,37 @@ kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.
 
 //Background LOOP
 
-      if (backgroundSprite.y >= 256) {
-        backgroundSprite.y = -256;
+      if (backgroundSprite.y >= 512) {
+        backgroundSprite.y = -512;
         backgroundSprite.dy = 1;
       }
 
-      if (backgroundSprite2.y >= 256) {
-        backgroundSprite2.y = -256;
+      if (backgroundSprite2.y >= 512) {
+        backgroundSprite2.y = -512;
         backgroundSprite2.dy = 1;
       }
 
 //red,blue,yellow LOOP
 
-      if (blue.y >= 256) {
-        blue.x = Math.random() * 256;
-        blue.y = (Math.random() * 256) - 256;
+      if (blue.y >= 512) {
+        blue.x = Math.random() * 320;
+        blue.y = (Math.random() * 512) - 512;
       }
 
-      if (yellow.y >= 256) {
-        yellow.x = Math.random() * 256;
-        yellow.y = (Math.random() * 256) - 256;
+      if (yellow.y >= 512) {
+        yellow.x = Math.random() * 320;
+        yellow.y = (Math.random() * 512) - 512;
       }
 
-      if (red.y >= 256) {
-        red.x = Math.random() * 256;
-        red.y = (Math.random() * 256) - 256;
+      if (red.y >= 512) {
+        red.x = Math.random() * 320;
+        red.y = (Math.random() * 512) - 512;
       }
 
-      if (score > 100)
+      if (score > 99)
       { loop.stop();
       alert('You Won!');}
-      else if(score < -50) {
+      else if(score < -49) {
       loop.stop();
       alert('You Lost!');
       }
