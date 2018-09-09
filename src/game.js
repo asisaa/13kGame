@@ -289,6 +289,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         green.update();
         player.update();
         console.log(score);
+      },
 
 
 /*
