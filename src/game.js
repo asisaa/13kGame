@@ -5,14 +5,16 @@ kontra.init()
 
 //loading the assets first and then starting the game
 kontra.assets.imagePath = '/Users/asisa/Projects/13kGame/src/img/';
-kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png', 'dog-blue.png','dog-yellow.png', 'dog-red.png')
+kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png', 'dog-blue.png','dog-yellow.png', 'dog-red.png')
 .then( function()
   {
+
+  var score = 0;
 
 /*
 -_-_-_-_-_-_-_-_-_- Sprites and Image Loader _-_-_-_-_-_-_-_-_-
 */
-
+//BACKGROUND
   let background = new Image();
   background.src = '/Users/asisa/Projects/13kGame/src/img/rgb-pixel.png';
 
@@ -30,7 +32,7 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
       dy: 1
     });
 
-
+//THE MAIN PLAYER THE DOG
     let dogimg = new Image();
     dogimg.src = '/Users/asisa/Projects/13kGame/src/img/dog.png';
     let dogredimg = new Image();
@@ -46,7 +48,7 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
         dy: 0
       });
 
-
+//DOTS FOR CHANGING THE COLOR
 
     let redimg = new Image();
     redimg.src = '/Users/asisa/Projects/13kGame/src/img/red.png';
@@ -76,11 +78,74 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
       });
 
 
+
+//ARRAY WITH ITEMS TO COLLECT
+
+
+      var items = [
+
+        kontra.sprite({
+        x: 100,
+        y: 0,
+        width:10,
+        height:5,
+        color: 'red',
+        dy: 1,
+      }),
+
+      kontra.sprite({
+      x: 30,
+      y: -100,
+      width:10,
+      height:5,
+      color: 'red',
+      dy: 1,
+    }),
+
+        kontra.sprite({
+        x: 150,
+        y: -200,
+        width:10,
+        height:5,
+        color: 'blue',
+        dy: 1.5
+        }),
+
+      kontra.sprite({
+      x: 150,
+      y: -200,
+      width:10,
+      height:5,
+      color: 'blue',
+      dy: 1.5
+      }),
+
+        kontra.sprite({
+        x: 30,
+        y: -10,
+        width:10,
+        height:5,
+        color: 'yellow',
+        dy: 0.5
+        }),
+
+        kontra.sprite({
+        x: 30,
+        y: -10,
+        width:10,
+        height:5,
+        color: 'yellow',
+        dy: 0.5
+        })
+
+      ];
   /*
   -_-_-_-_-_-_-_-_-_- GAME LOOP _-_-_-_-_-_-_-_-_-
   */
   var loop = kontra.gameLoop({
       update: function() {
+
+
 
   /*
   -_-_-_-_-_-_-_-_-_- CONTROLES _-_-_-_-_-_-_-_-_-
@@ -103,13 +168,13 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
         player.x -= 1;
       }
 
-      if(player.y <= 40) {
+  /*    if(player.y <= 40) {
         //pause game
         loop.stop();
 
         alert('YouWon!');
       }
-
+*/
 
 
 /*
@@ -138,21 +203,50 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
           red.dx = -Math.abs(rot.dx);
         }
 */
+//ITEM BEHAVIOUR
+    items.forEach(function(item){
 
-//check for collision
+      if (item.collidesWith(player)) {
+        item.y = -200;
+
+        if(player.image == dogredimg && item.color == 'red')
+        {score = score + 10;}
+
+        else if(player.image == dogyellowimg && item.color == 'yellow') {
+        score = score + 10;}
+
+        else if(player.image == dogblueimg && item.color == 'blue') {
+        score = score + 10;}
+
+        else {score = score - 10;}
+
+      }
+
+
+      if (item.y >= 256) {
+        item.x = Math.random() * 256;
+        item.y = (Math.random() * 256) - 256;
+      }
+      item.update();
+    });
+
+//Dog and color dots check for collision
         if(red.collidesWith(player)) {
           player.image = dogredimg;
-          //loop.stop();
-          //alert('Game Over!');
+          red.y = -200;
         }
 
         if(blue.collidesWith(player)) {
           player.image = dogblueimg;
+          blue.y = -200;
         }
 
         if(yellow.collidesWith(player)) {
           player.image = dogyellowimg;
+          yellow.y = -200;
         }
+
+//FUNCTION FOR EACH ELEMENT OF THE DOTS ARRAY
 
 
 //Background LOOP
@@ -184,6 +278,14 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
         red.y = (Math.random() * 256) - 256;
       }
 
+      if (score > 100)
+      { loop.stop();
+      alert('You Won!');}
+      else if(score < -50) {
+      loop.stop();
+      alert('You Lost!');
+      }
+
 //calling the update function
 
         backgroundSprite.update();
@@ -192,7 +294,8 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
         blue.update();
         yellow.update();
         player.update();
-        //console.log(sprite.x);
+        console.log(score);
+
       },
 
 /*
@@ -205,6 +308,11 @@ kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png'
         blue.render();
         yellow.render();
         red.render();
+
+        items.forEach(function(item){
+            item.render();
+        });
+
         player.render();
 
       }
