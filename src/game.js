@@ -21,14 +21,18 @@ kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.
     var backgroundSprite = kontra.sprite({
       x: 0,
       y: 0,
-      image: background,
+      width:320,
+      height:512,
+      color: '#293133',
       dy: 1
     });
 
     var backgroundSprite2 = kontra.sprite({
       x: 0,
-      y: -320,
-      image: background,
+      y: -512,
+      width:320,
+      height:512,
+      color: '#293133',
       dy: 1
     });
 
@@ -198,7 +202,6 @@ kontra.assets.load('yingyang.png','rgb-pixel.png','blue.png','red.png', 'yellow.
         else if (player.y <= 0) {
           player.y = 511;
         }
-
 
 
 
