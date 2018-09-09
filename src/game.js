@@ -5,14 +5,14 @@ kontra.init();
 
 //loading the assets first and then starting the game
 kontra.assets.imagePath = 'src/img';
-kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.png', 'dog-blue.png', 'dog-yellow.png', 'dog-red.png')
+kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png', 'dog-yellow.png', 'dog-red.png')
 .then(function() {
     var score = 0;
 
-    /*
-    -_-_-_-_-_-_-_-_-_- Sprites and Image Loader _-_-_-_-_-_-_-_-_-
-    */
-    //BACKGROUND
+/*
+-_-_-_-_-_-_-_-_-_- Sprites and Image Loader _-_-_-_-_-_-_-_-_-
+*/
+//BACKGROUND
     let background = new Image();
     background.src = 'src/img/rgb-pixel.png';
 
@@ -50,7 +50,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         dy: 0
       });
 
-    //DOTS FOR CHANGING THE COLOR
+//DOTS FOR CHANGING THE COLOR
 
     let redimg = new Image();
     redimg.src = 'src/img/red.png';
@@ -61,12 +61,12 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         dy: 1.5
       });
 
-    let yellowimg = new Image();
-    yellowimg.src = 'src/img/yellow.png';
-    var yellow = kontra.sprite({
+    let greenimg = new Image();
+    greenimg.src = 'src/img/green.png';
+    var green = kontra.sprite({
         x: 50,
         y: -50,
-        image: yellowimg,
+        image: greenimg,
         dy: 1.5
       });
 
@@ -79,7 +79,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         dy: 1.5
       });
 
-    //ARRAY WITH ITEMS TO COLLECT
+//ARRAY WITH ITEMS TO COLLECT
 
     var items = [
 
@@ -124,7 +124,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
           y: -10,
           width: 10,
           height: 5,
-          color: 'yellow',
+          color: 'green',
           dy: 0.5
         }),
 
@@ -133,22 +133,21 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
           y: -10,
           width: 10,
           height: 5,
-          color: 'yellow',
+          color: 'green',
           dy: 0.5
         })
 
       ];
-
-    /*
-    -_-_-_-_-_-_-_-_-_- GAME LOOP _-_-_-_-_-_-_-_-_-
-    */
+/*
+-_-_-_-_-_-_-_-_-_- GAME LOOP _-_-_-_-_-_-_-_-_-
+*/
     var loop = kontra.gameLoop({
       update: function() {
 
-        /*
-        -_-_-_-_-_-_-_-_-_- CONTROLES _-_-_-_-_-_-_-_-_-
-        */
-        // control player with the keyboard
+/*
+-_-_-_-_-_-_-_-_-_- CONTROLES _-_-_-_-_-_-_-_-_-
+*/
+// control player with the keyboard
 
         if (kontra.keys.pressed('up')) {
           player.y -= 1;
@@ -197,13 +196,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
           player.y = 511;
         }
 
-        //ITEM BEHAVIOUR
-        items.forEach(function(item){
 
-        if (item.collidesWith(player)) {
-          item.y = -200;
-
-<<<<<<< HEAD
 //ITEM BEHAVIOUR
     items.forEach(function(item){
 
@@ -213,23 +206,14 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         if(player.image == dogredimg && item.color == 'red')
         {score = score + 10;}
 
-        else if(player.image == dogyellowimg && item.color == 'yellow') {
+        else if(player.image == dogyellowimg && item.color == 'green') {
         score = score + 10;}
-=======
-          if (player.image == dogredimg && item.color == 'red')
-          {score = score + 10;}
 
-          else if (player.image == dogyellowimg && item.color == 'yellow') {
-          score = score + 10;}
->>>>>>> aae75464ef765a58909a4f40b784c6d1b176cb32
+        else if (player.image == dogblueimg && item.color == 'blue') {
+        score = score + 10;}
 
-          else if (player.image == dogblueimg && item.color == 'blue') {
-          score = score + 10;}
-
-          else {score = score - 10;}
-
+        else {score = score - 10;}
         }
-
 
       if (item.y >= 512) {
         item.x = Math.random() * 320;
@@ -249,9 +233,9 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
           blue.y = -200;
         }
 
-        if(yellow.collidesWith(player)) {
+        if(green.collidesWith(player)) {
           player.image = dogyellowimg;
-          yellow.y = -200;
+          green.y = -200;
         }
 
 //FUNCTION FOR EACH ELEMENT OF THE DOTS ARRAY
@@ -269,16 +253,16 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         backgroundSprite2.dy = 1;
       }
 
-//red,blue,yellow LOOP
+//red,blue,green LOOP
 
       if (blue.y >= 512) {
         blue.x = Math.random() * 320;
         blue.y = (Math.random() * 512) - 512;
       }
 
-      if (yellow.y >= 512) {
-        yellow.x = Math.random() * 320;
-        yellow.y = (Math.random() * 512) - 512;
+      if (green.y >= 512) {
+        green.x = Math.random() * 320;
+        green.y = (Math.random() * 512) - 512;
       }
 
       if (red.y >= 512) {
@@ -286,13 +270,15 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         red.y = (Math.random() * 512) - 512;
       }
 
-      if (score > 99)
-      { loop.stop();
-      alert('You Won!');}
+      if (score > 99) {
+        loop.stop();
+        alert('You Won!');
+        }
+
       else if(score < -49) {
-      loop.stop();
-      alert('You Lost!');
-      }
+        loop.stop();
+        alert('You Lost!');
+        }
 
 //calling the update function
 
@@ -300,11 +286,10 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         backgroundSprite2.update();
         red.update();
         blue.update();
-        yellow.update();
+        green.update();
         player.update();
         console.log(score);
 
-      },
 
 /*
 -_-_-_-_-_-_-_-_-_- RENDER _-_-_-_-_-_-_-_-_-
@@ -314,7 +299,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'yellow.png', 'dog.pn
         backgroundSprite.render();
         backgroundSprite2.render();
         blue.render();
-        yellow.render();
+        green.render();
         red.render();
 
         items.forEach(function(item){
