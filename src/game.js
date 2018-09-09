@@ -5,118 +5,76 @@ kontra.init()
 
 //loading the assets first and then starting the game
 kontra.assets.imagePath = '/Users/asisa/Projects/13kGame/src/img/';
-kontra.assets.load('TilesTest.png','character1.png','character2.png')
+kontra.assets.load('rgb-pixel.png','blue.png','red.png', 'yellow.png', 'dog.png', 'dog-blue.png','dog-yellow.png', 'dog-red.png')
 .then( function()
   {
 
 /*
--_-_-_-_-_-_-_-_-_- TILE ENGINE TEST _-_-_-_-_-_-_-_-_-
-*/
-    let tileEngine = kontra.tileEngine({
-      // tile size
-      tileWidth: 32,
-      tileHeight: 32,
-
-      // map size in tiles
-      width: 9,
-      height: 9
-    });
-
-    let img = document.createElement('img');
-    img.src = '/Users/asisa/Projects/13kGame/src/img/TilesTest.png';
-
-    img.onload = function() {
-      tileEngine.addTilesets({
-        image: img
-      });
-  };
-
-  img.onload = function() {
-  tileEngine.addTilesets({
-    image: img
-  });
-
-  // Add the following:
-  tileEngine.addLayers({
-    name: 'ground',
-    data: [ 0,  0,  0,  0,  0,  0,  0,  0,  0,
-            0,  0,  6,  6,  6,  6,  0,  0,  0,
-            0,  6,  24, 24, 24, 24, 0,  0,  0,
-            0,  24, 24, 24, 24, 24, 6,  0,  0,
-            0,  24, 24, 24, 24, 24, 24, 6,  0,
-            0,  24, 24, 24, 24, 24, 24, 24, 0,
-            0,  70, 70, 70, 0, 24, 24, 24, 0,
-            0,  0,  0,  0,  0, 70, 70, 70, 0,
-            0,  0,  0,  0,  0,  0,  0,  0,  0 ]
-
-  });
-}
-
-/*
 -_-_-_-_-_-_-_-_-_- Sprites and Image Loader _-_-_-_-_-_-_-_-_-
 */
-/*
-  let background = new Image();
-  background.src = '/Users/asisa/Projects/13kGame/src/img/TilesTest.png';
 
-  var backgroundSprite = kontra.sprite({
+  let background = new Image();
+  background.src = '/Users/asisa/Projects/13kGame/src/img/rgb-pixel.png';
+
+    var backgroundSprite = kontra.sprite({
       x: 0,
       y: 0,
       image: background,
-      dy: 0
-    }); */
+      dy: 1
+    });
 
-    let character1 = new Image();
-    character1.src = '/Users/asisa/Projects/13kGame/src/img/character1.png';
+    var backgroundSprite2 = kontra.sprite({
+      x: 0,
+      y: -256,
+      image: background,
+      dy: 1
+    });
 
+
+    let dogimg = new Image();
+    dogimg.src = '/Users/asisa/Projects/13kGame/src/img/dog.png';
+    let dogredimg = new Image();
+    dogredimg.src = '/Users/asisa/Projects/13kGame/src/img/dog-red.png';
+    let dogblueimg = new Image();
+    dogblueimg.src = '/Users/asisa/Projects/13kGame/src/img/dog-blue.png';
+    let dogyellowimg = new Image();
+    dogyellowimg.src = '/Users/asisa/Projects/13kGame/src/img/dog-yellow.png';
     var player = kontra.sprite({
-        x: 150,
-        y: 300,
-        image: character1,
+        x: 120,
+        y: 200,
+        image: dogimg,
         dy: 0
       });
 
-    let character2 = new Image();
-    character2.src = '/Users/asisa/Projects/13kGame/src/img/character2.png';
 
-    var enemies = [
-        kontra.sprite({
+
+    let redimg = new Image();
+    redimg.src = '/Users/asisa/Projects/13kGame/src/img/red.png';
+    var red = kontra.sprite({
         x: 100,
-        y: 100,
-        image: character2,
-        dx: 3
-        }),
-
-        kontra.sprite({
-        x: 50,
-        y: 50,
-        image: character2,
-        dx: 2
-        }),
-
-        kontra.sprite({
-        x: 120,
-        y: 150,
-        image: character2,
-        dx: 1
-        })
-      ];
-
-
-
-/*
-// THIS IS JUST A TESTING SPRITE CALLED spriteRed
-    var spriteRed = kontra.sprite({
-        x: 200,
-        y: 100,
-        width: 16,
-        height: 16,
-        color: 'red',
-        dy: 3,
-        //dy: 0.5
+        y: -1,
+        image: redimg,
+        dy: 1.5
       });
 
-*/
+    let yellowimg = new Image();
+    yellowimg.src = '/Users/asisa/Projects/13kGame/src/img/yellow.png';
+    var yellow = kontra.sprite({
+        x: 50,
+        y: -50,
+        image: yellowimg,
+        dy: 1.5
+      });
+
+    let blueimg = new Image();
+    blueimg.src = '/Users/asisa/Projects/13kGame/src/img/blue.png';
+    var blue = kontra.sprite({
+        x: 220,
+        y: - 200,
+        image: blueimg,
+        dy: 1.5
+      });
+
 
   /*
   -_-_-_-_-_-_-_-_-_- GAME LOOP _-_-_-_-_-_-_-_-_-
@@ -137,6 +95,14 @@ kontra.assets.load('TilesTest.png','character1.png','character2.png')
         player.y += 1;
       }
 
+      if (kontra.keys.pressed('right')){
+        player.x += 1;
+      }
+
+      if (kontra.keys.pressed('left')){
+        player.x -= 1;
+      }
+
       if(player.y <= 40) {
         //pause game
         loop.stop();
@@ -145,18 +111,6 @@ kontra.assets.load('TilesTest.png','character1.png','character2.png')
       }
 
 
-//control the sprite with pointer
-/*    if (kontra.pointer.pressed('left')){
-            // left mouse button pressed
-            sprite2.y = 0
-          }
-          else if (kontra.keys.pressed('right')) {
-          // right mouse button pressed
-          sprite2.y = 100
-          }
-*/
-
-      player.update();
 
 /*
 -_-_-_-_-_-_-_-_-_- COLLISOION _-_-_-_-_-_-_-_-_-
@@ -164,42 +118,80 @@ kontra.assets.load('TilesTest.png','character1.png','character2.png')
 
 //Bouncing the sprite on the edgers of the canvas
 
-      enemies.forEach(function(character2) {
-        if (character2.y >= 206) {
-          character2.y = 205,
-          character2.dy = -2
+/*        if (red.y >= 206) {
+          red.y = 205,
+          red.dy = -2
         }
 
-        else if (character2.y <= 0) {
-          character2.y = 1,
-          character2.dy = 3
+        else if (red.y <= 0) {
+          red.y = 1,
+          red.dy = 3
         }
 
-        if (character2.x < 32) {
-          character2.x = 32;
-          character2.dx = Math.abs(character2.dx);
+        if (red.x < 32) {
+          red.x = 32;
+          red.dx = Math.abs(rot.dx);
         }
 
-        else if (character2.x > 200) {
-          character2.x = 200;
-          character2.dx = -Math.abs(character2.dx);
+        else if (red.x > 200) {
+          red.x = 200;
+          red.dx = -Math.abs(rot.dx);
+        }
+*/
+
+//check for collision
+        if(red.collidesWith(player)) {
+          player.image = dogredimg;
+          //loop.stop();
+          //alert('Game Over!');
         }
 
-        character2.update();
-
-        //check for collision
-        if(character2.collidesWith(player)) {
-          loop.stop();
-          alert('Game Over!');
+        if(blue.collidesWith(player)) {
+          player.image = dogblueimg;
         }
 
-      });
+        if(yellow.collidesWith(player)) {
+          player.image = dogyellowimg;
+        }
 
+
+//Background LOOP
+
+      if (backgroundSprite.y >= 256) {
+        backgroundSprite.y = -256;
+        backgroundSprite.dy = 1;
+      }
+
+      if (backgroundSprite2.y >= 256) {
+        backgroundSprite2.y = -256;
+        backgroundSprite2.dy = 1;
+      }
+
+//red,blue,yellow LOOP
+
+      if (blue.y >= 256) {
+        blue.x = Math.random() * 256;
+        blue.y = (Math.random() * 256) - 256;
+      }
+
+      if (yellow.y >= 256) {
+        yellow.x = Math.random() * 256;
+        yellow.y = (Math.random() * 256) - 256;
+      }
+
+      if (red.y >= 256) {
+        red.x = Math.random() * 256;
+        red.y = (Math.random() * 256) - 256;
+      }
 
 //calling the update function
 
-        //backgroundSprite.update();
-
+        backgroundSprite.update();
+        backgroundSprite2.update();
+        red.update();
+        blue.update();
+        yellow.update();
+        player.update();
         //console.log(sprite.x);
       },
 
@@ -208,12 +200,13 @@ kontra.assets.load('TilesTest.png','character1.png','character2.png')
 */
 //render function
       render: function() {
-        //backgroundSprite.render();
-        tileEngine.render();
+        backgroundSprite.render();
+        backgroundSprite2.render();
+        blue.render();
+        yellow.render();
+        red.render();
         player.render();
-        enemies.forEach(function(character2) {
-          character2.render();
-        });
+
       }
     });
 //start game loop
