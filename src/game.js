@@ -1,6 +1,8 @@
+
 /*
 -_-_-_-_-_-_-_-_-_- INIT KONTRA ENGINE _-_-_-_-_-_-_-_-_-
 */
+
 kontra.init();
 
 //loading the assets first and then starting the game
@@ -10,6 +12,21 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
 
 //Variabel to keep track of the score
     var score = 0;
+
+//Variabel to keep track of the canvas and show score, start and end screen
+    var c = document.getElementById("game");
+    var ctx = c.getContext("2d");
+    ctx.font = "small-caps 30px Arial";
+    ctx.strokeText("Press 'enter' to start", 20,50);
+
+    var actualscore = {
+    showscore: function() {
+    return ctx.strokeText("SCORE = " + score, 20,100);
+      }
+    }
+    actualscore.showscore();
+
+
 /*
 -_-_-_-_-_-_-_-_-_- ALWAYS PAUSE GAME with "p" _-_-_-_-_-_-_-_-_-
 */
@@ -202,7 +219,11 @@ var loop = kontra.gameLoop({
 ---------_-_-_-_-_-_-_-_START UPDATE FUNCTION_-_-_-_-_-_-_-_-_-------------
 */
       update: function() {
+
+
 // Everything down here is part of the gameLoop and inside the update function
+
+
 /*
 -_-_-_-_-_-_-_-_-_- CONTROLES _-_-_-_-_-_-_-_-_-
 */
@@ -333,6 +354,8 @@ var loop = kontra.gameLoop({
 */
       if (score >= 100) {
         loop.stop();
+        //backgroundSprite.x = -500;
+        //backgroundSprite2.x = -500;
         console.log(loop.isStopped);
         //alert('You Won!');
         }
@@ -350,6 +373,7 @@ var loop = kontra.gameLoop({
         blue.update();
         green.update();
         player.update();
+        //showscore.update();
         console.log(score);
       },
 /*
@@ -366,6 +390,7 @@ var loop = kontra.gameLoop({
         blue.render();
         green.render();
         red.render();
+        //showscore.render();
 
         items.forEach(function(item){
             item.render();
@@ -379,7 +404,12 @@ var loop = kontra.gameLoop({
 ------------------ CLOSE GAME LOOP FUNCTIONS ---------------------
 */
 
-//call game loop
+//call game loop loop.start();
+
+//START
+
+  kontra.keys.bind('enter', function() {
       loop.start();
+  });
 
 }) //close assets loading/then function
