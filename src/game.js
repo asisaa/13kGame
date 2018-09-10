@@ -5,9 +5,21 @@ kontra.init();
 
 //loading the assets first and then starting the game
 kontra.assets.imagePath = 'src/img';
-kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png', 'dog-yellow.png', 'dog-red.png')
+kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png', 'dog-green.png', 'dog-red.png')
 .then(function() {
+
+//Variabel to keep track of the score
     var score = 0;
+/*
+-_-_-_-_-_-_-_-_-_- ALWAYS PAUSE GAME with "p" _-_-_-_-_-_-_-_-_-
+*/
+
+//PAUSE
+        kontra.keys.bind('p', function() {
+            if (loop.isStopped) {
+            loop.start();
+            } else {loop.stop(); }
+        });
 
 /*
 -_-_-_-_-_-_-_-_-_- Sprites and Image Loader _-_-_-_-_-_-_-_-_-
@@ -19,30 +31,27 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
     var backgroundSprite = kontra.sprite({
       x: 0,
       y: 0,
-      width:320,
-      height:512,
-      color: '#293133',
+      image: background,
       dy: 1
     });
 
     var backgroundSprite2 = kontra.sprite({
       x: 0,
       y: -512,
-      width:320,
-      height:512,
-      color: '#293133',
+      image: background,
       dy: 1
     });
 
-    //THE MAIN PLAYER THE DOG
+
+//THE DOG - THE MAIN PLAYER
     let dogimg = new Image();
     dogimg.src = 'src/img/dog.png';
     let dogredimg = new Image();
     dogredimg.src = 'src/img/dog-red.png';
     let dogblueimg = new Image();
     dogblueimg.src = 'src/img/dog-blue.png';
-    let dogyellowimg = new Image();
-    dogyellowimg.src = 'src/img/dog-yellow.png';
+    let doggreenimg = new Image();
+    doggreenimg.src = 'src/img/dog-green.png';
     var player = kontra.sprite({
         x: 120,
         y: 200,
@@ -50,8 +59,8 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         dy: 0
       });
 
-//DOTS FOR CHANGING THE COLOR
 
+//DOTS THAT THE DOG CAN CHANGE THE COLOR
     let redimg = new Image();
     redimg.src = 'src/img/red.png';
     var red = kontra.sprite({
@@ -79,8 +88,8 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         dy: 1.5
       });
 
-//ARRAY WITH ITEMS TO COLLECT
 
+//ARRAY WITH RGB ITEMS TO COLLECT
     var items = [
 
       kontra.sprite({
@@ -89,18 +98,32 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         width: 10,
         height: 5,
         color: 'red',
-        dy: 1,
+        dy: 1.2,
       }),
-
       kontra.sprite({
-        x: 30,
+        x: 230,
         y: -100,
         width: 10,
         height: 5,
         color: 'red',
-        dy: 1,
+        dy: 1.2,
       }),
-
+      kontra.sprite({
+        x: 300,
+        y: 10,
+        width: 10,
+        height: 5,
+        color: 'red',
+        dy: 1.2,
+      }),
+      kontra.sprite({
+        x: 200,
+        y: 40,
+        width: 10,
+        height: 5,
+        color: 'red',
+        dy: 1.2,
+      }),
       kontra.sprite({
         x: 150,
         y: -200,
@@ -109,7 +132,22 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         color: 'blue',
         dy: 1.5
       }),
-
+      kontra.sprite({
+        x: 190,
+        y: 100,
+        width: 10,
+        height: 5,
+        color: 'blue',
+        dy: 1.5
+      }),
+      kontra.sprite({
+        x: 10,
+        y: 200,
+        width: 10,
+        height: 5,
+        color: 'blue',
+        dy: 1.5
+      }),
       kontra.sprite({
         x: 150,
         y: -200,
@@ -118,32 +156,53 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         color: 'blue',
         dy: 1.5
       }),
-
-        kontra.sprite({
+      kontra.sprite({
+          x: 230,
+          y: -100,
+          width: 10,
+          height: 5,
+          color: '#00ff00',
+          dy: 1.8
+        }),
+      kontra.sprite({
           x: 30,
           y: -10,
           width: 10,
           height: 5,
-          color: 'green',
-          dy: 0.5
+          color: '#00ff00',
+          dy: 1.8
         }),
 
         kontra.sprite({
-          x: 30,
-          y: -10,
+          x: 70,
+          y: 10,
           width: 10,
           height: 5,
-          color: 'green',
-          dy: 0.5
+          color: '#00ff00',
+          dy: 1.8
+        }),
+
+        kontra.sprite({
+          x: 310,
+          y: 70,
+          width: 10,
+          height: 5,
+          color: '#00ff00',
+          dy: 1.8
         })
 
       ];
-/*
--_-_-_-_-_-_-_-_-_- GAME LOOP _-_-_-_-_-_-_-_-_-
-*/
-    var loop = kontra.gameLoop({
-      update: function() {
 
+/*
+------_-_-_-_-_-_-_-_-_- START GAME LOOP FUNCTION_-_-_-_-_-_-_-_-_--------
+*/
+
+var loop = kontra.gameLoop({
+/*
+---------_-_-_-_-_-_-_-_START UPDATE FUNCTION_-_-_-_-_-_-_-_-_-------------
+*/
+      update: function() {
+// Everything down here is part of the gameLoop and inside the update function
 /*
 -_-_-_-_-_-_-_-_-_- CONTROLES _-_-_-_-_-_-_-_-_-
 */
@@ -165,39 +224,30 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
           player.x -= 1;
         }
 
-        /*    if(player.y <= 40) {
-          //pause game
-          loop.stop();
 
-          alert('YouWon!');
-        }
-        */
-
-
-        /*
-        -_-_-_-_-_-_-_-_-_- COLLISION _-_-_-_-_-_-_-_-_-
-        */
-
-        //Bouncing the sprite on the edgers of the canvas
+//When player leave the canvas it enters the canvas on the other side
 
         if (player.x >= 320) {
-          player.x = 1;
+          player.x = 22;
         }
 
         else if (player.x <= 0) {
-          player.x = 319;
+          player.x = 298;
         }
 
         if (player.y >= 512) {
-          player.y = 1;
+          player.y = 22;
         }
 
         else if (player.y <= 0) {
-          player.y = 511;
+          player.y = 490;
         }
 
+/*
+-_-_-_-_-_-_-_-_-_- COLLISION FUNCTION_-_-_-_-_-_-_-_-_-
+*/
 
-//ITEM BEHAVIOUR
+//If the dog collides with an item from the right side the score goes higher else the score goes less
     items.forEach(function(item){
 
       if (item.collidesWith(player)) {
@@ -206,13 +256,21 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         if(player.image == dogredimg && item.color == 'red')
         {score = score + 10;}
 
-        else if(player.image == dogyellowimg && item.color == 'green') {
+        if(player.image == dogredimg && item.color != 'red')
+        {score = score - 10;}
+
+        else if(player.image == doggreenimg && item.color == 'green') {
         score = score + 10;}
+
+        else if(player.image == doggreenimg && item.color != 'green') {
+        score = score - 10;}
 
         else if (player.image == dogblueimg && item.color == 'blue') {
         score = score + 10;}
 
-        else {score = score - 10;}
+        else if (player.image == dogblueimg && item.color != 'blue') {
+        score = score - 10;}
+
         }
 
       if (item.y >= 512) {
@@ -222,7 +280,8 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
       item.update();
     });
 
-//Dog and color dots check for collision
+
+//If the dog collides with one of the dots the dog changes the color
         if(red.collidesWith(player)) {
           player.image = dogredimg;
           red.y = -200;
@@ -234,15 +293,15 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         }
 
         if(green.collidesWith(player)) {
-          player.image = dogyellowimg;
+          player.image = doggreenimg;
           green.y = -200;
         }
 
-//FUNCTION FOR EACH ELEMENT OF THE DOTS ARRAY
-
+/*
+-_-_-_-_-_-_-_-_-_- LOOPS_-_-_-_-_-_-_-_-_-
+*/
 
 //Background LOOP
-
       if (backgroundSprite.y >= 512) {
         backgroundSprite.y = -512;
         backgroundSprite.dy = 1;
@@ -253,8 +312,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         backgroundSprite2.dy = 1;
       }
 
-//red,blue,green LOOP
-
+//Dots LOOP
       if (blue.y >= 512) {
         blue.x = Math.random() * 320;
         blue.y = (Math.random() * 512) - 512;
@@ -270,17 +328,21 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         red.y = (Math.random() * 512) - 512;
       }
 
-      if (score > 99) {
+/*
+-_-_-_-_-_-_-_-_-_- WIN AND LOOSE_-_-_-_-_-_-_-_-_-
+*/
+      if (score >= 100) {
         loop.stop();
-        alert('You Won!');
+        console.log(loop.isStopped);
+        //alert('You Won!');
         }
 
-      else if(score < -49) {
+      else if(score <= -100) {
         loop.stop();
-        alert('You Lost!');
+        console.log(loop.isStopped);
+        //alert('You Lost!');
         }
 
-//calling the update function
 
         backgroundSprite.update();
         backgroundSprite2.update();
@@ -290,7 +352,9 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
         player.update();
         console.log(score);
       },
-
+/*
+------------------ CLOSE UPDATE FUNCTIONS ----------------------
+*/
 
 /*
 -_-_-_-_-_-_-_-_-_- RENDER _-_-_-_-_-_-_-_-_-
@@ -311,8 +375,11 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
 
       }
     });
-//start game loop
-  loop.start();
+/*
+------------------ CLOSE GAME LOOP FUNCTIONS ---------------------
+*/
 
-  }
-)
+//call game loop
+      loop.start();
+
+}) //close assets loading/then function
