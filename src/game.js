@@ -17,15 +17,17 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
     var c = document.getElementById("game");
     var ctx = c.getContext("2d");
     ctx.font = "small-caps 30px Arial";
-    ctx.strokeText("Press 'enter' to start", 20,50);
+    ctx.lineWidth=2;
+    ctx.fillStyle="#FFFFFF";
+    ctx.fillText("Press 'enter' to start", 20,50);
 
     var actualscore = {
     showscore: function() {
-    return ctx.strokeText("SCORE = " + score, 20,100);
+      console.log('actualscore');
+      ctx.fillStyle="#ffffff";
+      ctx.fillText("SCORE = " + score, 10,50);
       }
     }
-    actualscore.showscore();
-
 
 /*
 -_-_-_-_-_-_-_-_-_- ALWAYS PAUSE GAME with "p" _-_-_-_-_-_-_-_-_-
@@ -221,6 +223,7 @@ var loop = kontra.gameLoop({
       update: function() {
 
 
+
 // Everything down here is part of the gameLoop and inside the update function
 
 
@@ -267,38 +270,38 @@ var loop = kontra.gameLoop({
 /*
 -_-_-_-_-_-_-_-_-_- COLLISION FUNCTION_-_-_-_-_-_-_-_-_-
 */
-
+// FEHLER!!! AKTUELL STIMMT DAS ADDIEREN UND SUBTRAHIEREN DER SCORE WÄHREND DES SPIELS NOCH NICHT RICHTIG!!!!
 //If the dog collides with an item from the right side the score goes higher else the score goes less
     items.forEach(function(item){
 
       if (item.collidesWith(player)) {
         item.y = -200;
 
-        if(player.image == dogredimg && item.color == 'red')
-        {score = score + 10;}
-
-        if(player.image == dogredimg && item.color != 'red')
-        {score = score - 10;}
-
-        else if(player.image == doggreenimg && item.color == 'green') {
-        score = score + 10;}
-
-        else if(player.image == doggreenimg && item.color != 'green') {
-        score = score - 10;}
-
-        else if (player.image == dogblueimg && item.color == 'blue') {
-        score = score + 10;}
-
-        else if (player.image == dogblueimg && item.color != 'blue') {
-        score = score - 10;}
-
+        if (player.image == dogredimg) {
+          if (item.color == 'red') {
+            score += 10;
+          } else {
+            score -= 10;
+          }
+        } else if (player.image == doggreenimg) {
+          if (item.color == '#00ff00') {
+            score += 10;
+          } else {
+            score -= 10;
+          }
+        }  else if (player.image == dogblueimg) {
+          if (item.color == 'blue') {
+            score += 10;
+          } else {
+            score -= 10;
+          }
         }
-
-      if (item.y >= 512) {
+      } else if (item.y >= 512) {
         item.x = Math.random() * 320;
         item.y = (Math.random() * 512) - 512;
+      } else {
+        item.update();
       }
-      item.update();
     });
 
 
@@ -373,7 +376,6 @@ var loop = kontra.gameLoop({
         blue.update();
         green.update();
         player.update();
-        //showscore.update();
         console.log(score);
       },
 /*
@@ -397,6 +399,7 @@ var loop = kontra.gameLoop({
         });
 
         player.render();
+        actualscore.showscore();
 
       }
     });
