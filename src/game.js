@@ -1,7 +1,6 @@
 /*
 -_-_-_-_-_-_-_-_-_- SOUND _-_-_-_-_-_-_-_-_-
 */
-
 //sound credits: https://css-tricks.com/introduction-web-audio-api/
 
 class Sound {
@@ -60,14 +59,30 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
     ctx.fillStyle="#FFFFFF";
     ctx.fillText("Press 'enter' to start", 20,50);
 
+//Show win or show loss
+    var win = {
+    showwin: function() {
+      ctx.fillStyle="#ffffff";
+      ctx.fillText("YOU WON", 77,250);
+      }
+    }
+
+    var loss = {
+    showloss: function() {
+      ctx.fillStyle="#ffffff";
+      ctx.fillText("GAME OVER", 60,250);
+      }
+    }
+
+//Show the score
     var actualscore = {
     showscore: function() {
       console.log('actualscore');
       ctx.fillStyle="#ffffff";
-      ctx.fillText("SCORE = " + score, 10,50);
+      ctx.fillText("SCORE = " + score, 20,20);
       }
     }
-
+//SOUND Variables and initializing a new AudioContext
   let context = new (window.AudioContext || window.webkitAudioContext)();
   let note = new Sound(context);
 
@@ -122,7 +137,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
       });
 
 
-//DOTS THAT THE DOG CAN CHANGE THE COLOR
+//IMAGE-SPRITES THAT THE DOG CAN CHANGE THE COLOR
     let redimg = new Image();
     redimg.src = 'src/img/red.png';
     var red = kontra.sprite({
@@ -151,7 +166,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
       });
 
 
-//ARRAY WITH RGB ITEMS TO COLLECT
+//ARRAY WITH RGB ITEMS WHICH THE DOG NEED TO COLLECT
     var items = [
 
       kontra.sprite({
@@ -312,8 +327,8 @@ var loop = kontra.gameLoop({
 /*
 -_-_-_-_-_-_-_-_-_- COLLISION FUNCTION_-_-_-_-_-_-_-_-_-
 */
-  //Functions play the sound depending on score increase or decrease
-  //There get used in the forEach collision function
+  //Functions are playing the sound depending on score increase or decrease
+  //There get used in the forEach collision function below
     var plussound = {
         plus: function() {
         let now = context.currentTime;
@@ -328,7 +343,8 @@ var loop = kontra.gameLoop({
       }
     }
 
-//forEach collision function
+//forEach collision function uses the plus and minus sound function
+//If dog and an item collides depending if the color fit the score inscreases or descreases
     items.forEach(function(item){
 
       if (item.collidesWith(player)) {
@@ -380,14 +396,14 @@ var loop = kontra.gameLoop({
           player.image = dogblueimg;
           blue.y = -200;
           let now = context.currentTime;
-          note.play(293.66, now); //plays D
+          note.play(329.63, now); //plays C
         }
 
         if(green.collidesWith(player)) {
           player.image = doggreenimg;
           green.y = -200;
           let now = context.currentTime;
-          note.play(392.00, now);//plays G
+          note.play(329.63, now); //plays C
         }
 
 /*
@@ -424,17 +440,6 @@ var loop = kontra.gameLoop({
 /*
 -_-_-_-_-_-_-_-_-_- WIN AND LOOSE_-_-_-_-_-_-_-_-_-
 */
-      if (score >= 100) {
-        loop.stop();
-        console.log(loop.isStopped);
-        //alert('You Won!');
-        }
-
-      else if(score <= -100) {
-        loop.stop();
-        console.log(loop.isStopped);
-        //alert('You Lost!');
-        }
 
 
         backgroundSprite.update();
@@ -467,6 +472,20 @@ var loop = kontra.gameLoop({
 
         player.render();
         actualscore.showscore();
+
+        if (score >= 100) {
+          loop.stop();
+          console.log(loop.isStopped);
+          win.showwin();
+          //alert('You Won!');
+          }
+
+        else if(score <= -100) {
+          loop.stop();
+          console.log(loop.isStopped);
+          loss.showloss();
+          //alert('You Lost!');
+          }
 
       }
     });
