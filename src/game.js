@@ -45,8 +45,29 @@ kontra.init();
 
 //loading the assets first and then starting the game
 kontra.assets.imagePath = 'src/img';
-kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png', 'dog-green.png', 'dog-red.png')
+kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png', 'dog-green.png', 'dog-red.png')
 .then(function() {
+
+//BACKGROUND
+    let starCount = 500;
+    let bgrdStars = [starCount];
+    let mode;
+    let size;
+    let dy;
+
+    for (var i = 0; i < starCount; i++) {
+    size = Math.random();
+
+    bgrdStars[i] = kontra.sprite({
+      x: Math.round(Math.random() * 320),
+      y: Math.round(Math.random() * 512),
+      width: Math.round(size * 3),
+      height: Math.round(size * 3),
+      color: 'white',
+      dy: ((Math.pow(Math.random(), 2) * 1.2) + 0.3),
+    });
+    };
+
 
 //Variabel to keep track of the score
     var score = 0;
@@ -79,7 +100,7 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
     showscore: function() {
       console.log('actualscore');
       ctx.fillStyle="#ffffff";
-      ctx.fillText("SCORE = " + score, 20,20);
+      ctx.fillText("SCORE = " + score, 20,50);
       }
     }
 //SOUND Variables and initializing a new AudioContext
@@ -101,24 +122,6 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
 /*
 -_-_-_-_-_-_-_-_-_- Sprites and Image Loader _-_-_-_-_-_-_-_-_-
 */
-//BACKGROUND
-    let background = new Image();
-    background.src = 'src/img/rgb-pixel.png';
-
-    var backgroundSprite = kontra.sprite({
-      x: 0,
-      y: 0,
-      image: background,
-      dy: 1
-    });
-
-    var backgroundSprite2 = kontra.sprite({
-      x: 0,
-      y: -512,
-      image: background,
-      dy: 1
-    });
-
 
 //THE DOG - THE MAIN PLAYER
     let dogimg = new Image();
@@ -283,6 +286,15 @@ var loop = kontra.gameLoop({
 
 // Everything down here is part of the gameLoop and inside the update function
 
+//BACKGROUND
+      bgrdStars.forEach(function(star){
+         if (star.y > 512) {
+           star.y = 0;
+           star.x = Math.round(Math.random() * 320);
+         } else {
+           star.update();
+         }
+       });
 
 /*
 -_-_-_-_-_-_-_-_-_- CONTROLES _-_-_-_-_-_-_-_-_-
@@ -410,17 +422,6 @@ var loop = kontra.gameLoop({
 -_-_-_-_-_-_-_-_-_- LOOPS_-_-_-_-_-_-_-_-_-
 */
 
-//Background LOOP
-      if (backgroundSprite.y >= 512) {
-        backgroundSprite.y = -512;
-        backgroundSprite.dy = 1;
-      }
-
-      if (backgroundSprite2.y >= 512) {
-        backgroundSprite2.y = -512;
-        backgroundSprite2.dy = 1;
-      }
-
 //Dots LOOP
       if (blue.y >= 512) {
         blue.x = Math.random() * 320;
@@ -441,9 +442,6 @@ var loop = kontra.gameLoop({
 -_-_-_-_-_-_-_-_-_- WIN AND LOOSE_-_-_-_-_-_-_-_-_-
 */
 
-
-        backgroundSprite.update();
-        backgroundSprite2.update();
         red.update();
         blue.update();
         green.update();
@@ -459,8 +457,7 @@ var loop = kontra.gameLoop({
 */
 //render function
       render: function() {
-        backgroundSprite.render();
-        backgroundSprite2.render();
+
         blue.render();
         green.render();
         red.render();
@@ -486,6 +483,11 @@ var loop = kontra.gameLoop({
           loss.showloss();
           //alert('You Lost!');
           }
+//TEST
+          bgrdStars.forEach(function(star){
+            star.render();
+          })
+  //TESTENDE
 
       }
     });
