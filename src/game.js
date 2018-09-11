@@ -72,22 +72,36 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
 //Variabel to keep track of the score
     var score = 0;
 
-//Variabel to keep track of the canvas and show score, start and end screen
+//SHOW TEXT ON CANVAS - TEXT FOR: SCORE, WIN, LOSS, STARTSCREEN
     var c = document.getElementById("game");
     var ctx = c.getContext("2d");
     ctx.font = "small-caps 30px Arial";
     ctx.lineWidth=2;
+//Startscreen
     ctx.fillStyle="#FFFFFF";
-    ctx.fillText("Press 'enter' to start", 20,50);
+    ctx.fillText("Press 'enter' to start", 20,470);
 
-//Show win or show loss
+    ctx.fillText("'WOOF!' Bo the dog", 20,100);
+    ctx.fillText("fall into the screen.", 20,135);
+    ctx.fillText("Help him to find", 20,180);
+    ctx.fillText("his way back out into", 20,215);
+    ctx.fillText("the offline world.", 20,250);
+    let dogimgstart = new Image();
+    dogimgstart.src = 'src/img/dog.png';
+    ctx.drawImage(dogimgstart,130,350);
+    ctx.strokeStyle="#FFFFFF";
+    ctx.strokeRect(112, 330, 80, 50);
+
+//Show win
     var win = {
     showwin: function() {
       ctx.fillStyle="#ffffff";
-      ctx.fillText("YOU WON", 77,250);
+      ctx.fillText("'WOOF!' YOU WON", 20,200);
+      ctx.fillText("Bo can go back into", 20,330);
+      ctx.fillText("the OFFLINE World", 20,365);
       }
     }
-
+//Show loss
     var loss = {
     showloss: function() {
       ctx.fillStyle="#ffffff";
@@ -133,8 +147,8 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     let doggreenimg = new Image();
     doggreenimg.src = 'src/img/dog-green.png';
     var player = kontra.sprite({
-        x: 120,
-        y: 200,
+        x: 130,
+        y: 350,
         image: dogimg,
         dy: 0
       });
@@ -149,6 +163,7 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
         image: redimg,
         dy: 1.5
       });
+
 
     let greenimg = new Image();
     greenimg.src = 'src/img/green.png';
@@ -458,10 +473,13 @@ var loop = kontra.gameLoop({
 //render function
       render: function() {
 
+        bgrdStars.forEach(function(star){
+          star.render();
+        })
+
         blue.render();
         green.render();
         red.render();
-        //showscore.render();
 
         items.forEach(function(item){
             item.render();
@@ -474,19 +492,15 @@ var loop = kontra.gameLoop({
           loop.stop();
           console.log(loop.isStopped);
           win.showwin();
-          //alert('You Won!');
           }
 
         else if(score <= -100) {
           loop.stop();
           console.log(loop.isStopped);
           loss.showloss();
-          //alert('You Lost!');
           }
 //TEST
-          bgrdStars.forEach(function(star){
-            star.render();
-          })
+
   //TESTENDE
 
       }
