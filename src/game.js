@@ -1,3 +1,42 @@
+/*
+-_-_-_-_-_-_-_-_-_- SOUND _-_-_-_-_-_-_-_-_-
+*/
+
+//sound credits: https://css-tricks.com/introduction-web-audio-api/
+
+class Sound {
+
+  constructor(context) {
+    this.context = context;
+  }
+
+  init() {
+    this.oscillator = this.context.createOscillator();
+    this.gainNode = this.context.createGain();
+
+    this.oscillator.connect(this.gainNode);
+    this.gainNode.connect(this.context.destination);
+    this.oscillator.type = 'square';
+  }
+
+  play(value, time) {
+    this.init();
+
+    this.oscillator.frequency.value = value;
+    this.gainNode.gain.setValueAtTime(1, this.context.currentTime);
+
+    this.oscillator.start(time);
+    this.stop(time);
+
+  }
+
+  stop(time) {
+    this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.5);
+    this.oscillator.stop(time + 0.1);
+  }
+
+}
+
 
 /*
 -_-_-_-_-_-_-_-_-_- INIT KONTRA ENGINE _-_-_-_-_-_-_-_-_-
@@ -28,6 +67,10 @@ kontra.assets.load('rgb-pixel.png', 'blue.png', 'red.png', 'green.png', 'dog.png
       ctx.fillText("SCORE = " + score, 10,50);
       }
     }
+
+  let context = new (window.AudioContext || window.webkitAudioContext)();
+  let note = new Sound(context);
+
 
 /*
 -_-_-_-_-_-_-_-_-_- ALWAYS PAUSE GAME with "p" _-_-_-_-_-_-_-_-_-
@@ -223,7 +266,6 @@ var loop = kontra.gameLoop({
       update: function() {
 
 
-
 // Everything down here is part of the gameLoop and inside the update function
 
 
@@ -270,8 +312,23 @@ var loop = kontra.gameLoop({
 /*
 -_-_-_-_-_-_-_-_-_- COLLISION FUNCTION_-_-_-_-_-_-_-_-_-
 */
-// FEHLER!!! AKTUELL STIMMT DAS ADDIEREN UND SUBTRAHIEREN DER SCORE WÄHREND DES SPIELS NOCH NICHT RICHTIG!!!!
-//If the dog collides with an item from the right side the score goes higher else the score goes less
+  //Functions play the sound depending on score increase or decrease
+  //There get used in the forEach collision function
+    var plussound = {
+        plus: function() {
+        let now = context.currentTime;
+        note.play(440.00, now); //plays A
+      }
+    }
+
+    var minussound = {
+        minus: function() {
+        let now = context.currentTime;
+        note.play(196.00, now); //plays G
+      }
+    }
+
+//forEach collision function
     items.forEach(function(item){
 
       if (item.collidesWith(player)) {
@@ -280,20 +337,26 @@ var loop = kontra.gameLoop({
         if (player.image == dogredimg) {
           if (item.color == 'red') {
             score += 10;
+            plussound.plus();
           } else {
             score -= 10;
+            minussound.minus();
           }
         } else if (player.image == doggreenimg) {
           if (item.color == '#00ff00') {
             score += 10;
+            plussound.plus();
           } else {
             score -= 10;
+            minussound.minus();
           }
         }  else if (player.image == dogblueimg) {
           if (item.color == 'blue') {
             score += 10;
+            plussound.plus();
           } else {
             score -= 10;
+            minussound.minus();
           }
         }
       } else if (item.y >= 512) {
@@ -309,16 +372,22 @@ var loop = kontra.gameLoop({
         if(red.collidesWith(player)) {
           player.image = dogredimg;
           red.y = -200;
+          let now = context.currentTime;
+          note.play(329.63, now); //plays C
         }
 
         if(blue.collidesWith(player)) {
           player.image = dogblueimg;
           blue.y = -200;
+          let now = context.currentTime;
+          note.play(293.66, now); //plays D
         }
 
         if(green.collidesWith(player)) {
           player.image = doggreenimg;
           green.y = -200;
+          let now = context.currentTime;
+          note.play(392.00, now);//plays G
         }
 
 /*
@@ -357,8 +426,6 @@ var loop = kontra.gameLoop({
 */
       if (score >= 100) {
         loop.stop();
-        //backgroundSprite.x = -500;
-        //backgroundSprite2.x = -500;
         console.log(loop.isStopped);
         //alert('You Won!');
         }
@@ -407,7 +474,6 @@ var loop = kontra.gameLoop({
 ------------------ CLOSE GAME LOOP FUNCTIONS ---------------------
 */
 
-//call game loop loop.start();
 
 //START
 
