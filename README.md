@@ -2,10 +2,10 @@
 A 13kb javascript game for fun and learning.
 
 ### Bos story
-Bo the dog fall into the RGB screen.
+Bo the dog fell into the RGB screen.
 Can you help Bo to find his way back into the offline world?
 
-### How to play:
+### How to play
 Download the code and just open the index.html on your Desktop.
 
 Start game: "enter"

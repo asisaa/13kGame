@@ -212,11 +212,9 @@ kontra.assets.load('dog.png', 'dog-blue.png', 'dog-green.png', 'dog-red.png')
       });
 
     let blueimg = new Image();
-    blueimg.src = 'src/img/blue.png';
     var blue = kontra.sprite({
         x: Math.random () * 310,
         y: Math.random () * 500,
-        image: blueimg,
         dy: 1.5,
         color: 'blue',
         // custom properties
