@@ -1,7 +1,24 @@
 /*
+Title: BO THE DOG
+Author: Asisa Asseily
+
+Contribution: Timo Schuhmacher
+>>>> background, debugging support and idea session <<<<<<
+
+CHALLENGE: http://js13kgames.com/
+Bo the dog was developed for the 2018 js13kGames competition.
+The 2018 theme is "offline".
+
+Libs: Kontra.js
+https://straker.github.io/kontra/
+
+Thanks for playing!
+*/
+
+
+/*
 -_-_-_-_-_-_-_-_-_- SOUND _-_-_-_-_-_-_-_-_-
 */
-//sound credits: https://css-tricks.com/introduction-web-audio-api/
 
 class Sound {
 
@@ -75,17 +92,19 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
 //SHOW TEXT ON CANVAS - TEXT FOR: SCORE, WIN, LOSS, STARTSCREEN
     var c = document.getElementById("game");
     var ctx = c.getContext("2d");
-    ctx.font = "small-caps 30px Arial";
+    ctx.font = "small-caps 26px Arial";
     ctx.lineWidth=2;
 //Startscreen
     ctx.fillStyle="#FFFFFF";
     ctx.fillText("Press 'enter' to start", 20,470);
 
-    ctx.fillText("'WOOF!' Bo the dog", 20,100);
-    ctx.fillText("fall into the screen.", 20,135);
-    ctx.fillText("Help him to find", 20,180);
-    ctx.fillText("his way back out into", 20,215);
-    ctx.fillText("the offline world.", 20,250);
+    ctx.fillText("'WOOF!' Bo the dog", 20,40);
+    ctx.fillText("fall into the screen.", 20,70);
+    ctx.fillText("Help Bo find his way back", 20,120);
+    ctx.fillText("into the OFFLINE world.", 20,150);
+    ctx.fillText("Get Bo a RGB color and", 20,210);
+    ctx.fillText("collect the right pixels.", 20,240);
+
     let dogimgstart = new Image();
     dogimgstart.src = 'src/img/dog.png';
     ctx.drawImage(dogimgstart,130,350);
@@ -97,8 +116,8 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     showwin: function() {
       ctx.fillStyle="#ffffff";
       ctx.fillText("'WOOF!' YOU WON", 20,200);
-      ctx.fillText("Bo can go back into", 20,330);
-      ctx.fillText("the OFFLINE World", 20,365);
+      ctx.fillText("Bo can go back into", 20,300);
+      ctx.fillText("the OFFLINE World", 20,335);
       }
     }
 //Show loss
@@ -106,6 +125,7 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     showloss: function() {
       ctx.fillStyle="#ffffff";
       ctx.fillText("GAME OVER", 60,250);
+      ctx.fillText("Bo is lost in the screen", 20,280);
       }
     }
 
@@ -158,8 +178,8 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     let redimg = new Image();
     redimg.src = 'src/img/red.png';
     var red = kontra.sprite({
-        x: 100,
-        y: -1,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         image: redimg,
         dy: 1.5
       });
@@ -168,8 +188,8 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     let greenimg = new Image();
     greenimg.src = 'src/img/green.png';
     var green = kontra.sprite({
-        x: 50,
-        y: -50,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         image: greenimg,
         dy: 1.5
       });
@@ -177,8 +197,8 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     let blueimg = new Image();
     blueimg.src = 'src/img/blue.png';
     var blue = kontra.sprite({
-        x: 220,
-        y: -200,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         image: blueimg,
         dy: 1.5
       });
@@ -188,105 +208,126 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
     var items = [
 
       kontra.sprite({
-        x: 100,
-        y: 0,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'red',
-        dy: 1.2,
+        dy: 2.5
       }),
       kontra.sprite({
-        x: 230,
-        y: -100,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'red',
-        dy: 1.2,
+        dy: 2.5
       }),
       kontra.sprite({
-        x: 300,
-        y: 10,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'red',
-        dy: 1.2,
+        dy: 2
       }),
       kontra.sprite({
-        x: 200,
-        y: 40,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'red',
-        dy: 1.2,
+        dy: 2
       }),
       kontra.sprite({
-        x: 150,
-        y: -200,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
+        width: 10,
+        height: 5,
+        color: 'red',
+        dy: 2
+      }),
+      kontra.sprite({
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'blue',
-        dy: 1.5
+        dy: 2.5
       }),
       kontra.sprite({
-        x: 190,
-        y: 100,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'blue',
-        dy: 1.5
+        dy: 2.5
       }),
       kontra.sprite({
-        x: 10,
-        y: 200,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'blue',
-        dy: 1.5
+        dy: 2
       }),
       kontra.sprite({
-        x: 150,
-        y: -200,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
         width: 10,
         height: 5,
         color: 'blue',
-        dy: 1.5
+        dy: 2
       }),
       kontra.sprite({
-          x: 230,
-          y: -100,
+        x: Math.random () * 310,
+        y: Math.random () * 500,
+        width: 10,
+        height: 5,
+        color: 'blue',
+        dy: 2
+      }),
+      kontra.sprite({
+          x: Math.random () * 310,
+          y: Math.random () * 500,
           width: 10,
           height: 5,
           color: '#00ff00',
-          dy: 1.8
+          dy: 2
         }),
       kontra.sprite({
-          x: 30,
-          y: -10,
+          x: Math.random () * 310,
+          y: Math.random () * 500,
           width: 10,
           height: 5,
           color: '#00ff00',
-          dy: 1.8
+          dy: 2
         }),
-
-        kontra.sprite({
-          x: 70,
-          y: 10,
+      kontra.sprite({
+          x: Math.random () * 310,
+          y: Math.random () * 500,
           width: 10,
           height: 5,
           color: '#00ff00',
-          dy: 1.8
+          dy: 2.5
         }),
-
-        kontra.sprite({
-          x: 310,
-          y: 70,
+      kontra.sprite({
+          x: Math.random () * 310,
+          y: Math.random () * 500,
           width: 10,
           height: 5,
           color: '#00ff00',
-          dy: 1.8
+          dy: 2.5
+        }),
+      kontra.sprite({
+          x: Math.random () * 310,
+          y: Math.random () * 500,
+          width: 10,
+          height: 5,
+          color: '#00ff00',
+          dy: 2
         })
-
-      ];
+    ];
 
 /*
 ------_-_-_-_-_-_-_-_-_- START GAME LOOP FUNCTION_-_-_-_-_-_-_-_-_--------
@@ -350,7 +391,19 @@ var loop = kontra.gameLoop({
         else if (player.y <= 0) {
           player.y = 490;
         }
+//Items are going faster when the score gets bigger than 30
 
+        items.forEach(function(item){
+          if (score >= 30){
+            item.dy += 0.005;
+          }
+        });
+
+        if (score >= 30) {
+          red.dy += 0.005;
+          blue.dy += 0.005;
+          green.dy += 0.005;
+        }
 /*
 -_-_-_-_-_-_-_-_-_- COLLISION FUNCTION_-_-_-_-_-_-_-_-_-
 */
@@ -369,6 +422,7 @@ var loop = kontra.gameLoop({
         note.play(196.00, now); //plays G
       }
     }
+
 
 //forEach collision function uses the plus and minus sound function
 //If dog and an item collides depending if the color fit the score inscreases or descreases
@@ -452,10 +506,7 @@ var loop = kontra.gameLoop({
         red.x = Math.random() * 320;
         red.y = (Math.random() * 512) - 512;
       }
-
-/*
--_-_-_-_-_-_-_-_-_- WIN AND LOOSE_-_-_-_-_-_-_-_-_-
-*/
+//update dots and player
 
         red.update();
         blue.update();
@@ -488,20 +539,21 @@ var loop = kontra.gameLoop({
         player.render();
         actualscore.showscore();
 
+  /*
+  -_-_-_-_-_-_-_-_-_- WIN AND LOOSE_-_-_-_-_-_-_-_-_-
+  */
+
         if (score >= 100) {
           loop.stop();
           console.log(loop.isStopped);
           win.showwin();
           }
 
-        else if(score <= -100) {
+        else if(score <= -50) {
           loop.stop();
           console.log(loop.isStopped);
           loss.showloss();
           }
-//TEST
-
-  //TESTENDE
 
       }
     });
@@ -510,7 +562,7 @@ var loop = kontra.gameLoop({
 */
 
 
-//START
+//START GAME
 
   kontra.keys.bind('enter', function() {
       loop.start();
