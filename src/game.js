@@ -62,7 +62,7 @@ kontra.init();
 
 //loading the assets first and then starting the game
 kontra.assets.imagePath = 'src/img';
-kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png', 'dog-green.png', 'dog-red.png')
+kontra.assets.load('dog.png', 'dog-blue.png', 'dog-green.png', 'dog-red.png')
 .then(function() {
 
 //BACKGROUND
@@ -176,22 +176,39 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
 
 //IMAGE-SPRITES THAT THE DOG CAN CHANGE THE COLOR
     let redimg = new Image();
-    redimg.src = 'src/img/red.png';
     var red = kontra.sprite({
         x: Math.random () * 310,
         y: Math.random () * 500,
-        image: redimg,
-        dy: 1.5
+        x: 300,
+        y: 100,
+        dy: 1.5,
+        color: 'red',
+        // custom properties
+        radius: 11,
+        render: function() {
+          this.context.fillStyle = this.color;
+          this.context.beginPath();
+          this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+          this.context.fill();
+        }
+
       });
 
 
     let greenimg = new Image();
-    greenimg.src = 'src/img/green.png';
     var green = kontra.sprite({
         x: Math.random () * 310,
         y: Math.random () * 500,
-        image: greenimg,
-        dy: 1.5
+        dy: 1.5,
+        color: '#00ff00',
+        // custom properties
+        radius: 11,
+        render: function() {
+          this.context.fillStyle = this.color;
+          this.context.beginPath();
+          this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+          this.context.fill();
+        }
       });
 
     let blueimg = new Image();
@@ -200,7 +217,16 @@ kontra.assets.load('blue.png', 'red.png', 'green.png', 'dog.png', 'dog-blue.png'
         x: Math.random () * 310,
         y: Math.random () * 500,
         image: blueimg,
-        dy: 1.5
+        dy: 1.5,
+        color: 'blue',
+        // custom properties
+        radius: 11,
+        render: function() {
+          this.context.fillStyle = this.color;
+          this.context.beginPath();
+          this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+          this.context.fill();
+        }
       });
 
 
