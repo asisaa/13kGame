@@ -7,15 +7,16 @@ Can you help Bo to find his way back into the offline world?
 
 ### How to play
 Download the code and just open the index.html on your Desktop.  
-Start game: "enter"  
-Navigation: Use the "arrow keys" to navigate Bo
-Pause game: "p"
+
+**Start game** with "enter"  
+**Navigate** Bo with the "arrow keys"   
+**Pause** game with "p"
 
 Collect the "RGB-dots" to change Bo's color.  
 Collect the "RGB-pixel" items in Bo's color to increase your score.
 
-WON (Bo can go offline): Score => 100  
-GAME OVER (Bo has to stay in the screen): Score =< -50
+**WON** (Bo can go offline): Score => 100  
+**GAME OVER** (Bo has to stay in the screen): Score =< -50
 
 ### Compatibility
 Desktop: Chrome, Safari, Firefox
@@ -44,7 +45,7 @@ how to make sound or a simple game loop.
 Then I heared about the 13kb challenge. The challenge had already started
 but I decided to start anyway. And this was the best decision ever!
 
-Enjoy playing "Bo the Dog"!
+**Enjoy playing "Bo the Dog"!**
 
 ### License
 This project is licensed under the MIT License - see the LICENSE.txt file for details
