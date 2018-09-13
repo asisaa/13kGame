@@ -6,38 +6,35 @@ Bo the dog fell into the RGB screen.
 Can you help Bo to find his way back into the offline world?
 
 ### How to play
-Download the code and just open the index.html on your Desktop.
-
-Start game: "enter"
+Download the code and just open the index.html on your Desktop.  
+Start game: "enter"  
 Navigation: Use the "arrow keys" to navigate Bo
 Pause game: "p"
 
-Collect the "RGB-dots" to change Bos color.
-Collect the "RGB-pixel" items in Bos color to increase your score.
+Collect the "RGB-dots" to change Bo's color.  
+Collect the "RGB-pixel" items in Bo's color to increase your score.
 
-WON (Bo can go offline): Score => 100
+WON (Bo can go offline): Score => 100  
 GAME OVER (Bo has to stay in the screen): Score =< -50
 
 ### Compatibility
 Desktop: Chrome, Safari, Firefox
 
 ### Libs
-Kontra.js
+Kontra.js  
 https://straker.github.io/kontra/
 
 ### 13kb Game Challenge
 Main theme for the 2018 competition is "offline".
-All code and game assets need to be smaller than 13,312 bytes.
+All code and game assets need to be smaller than 13,312 bytes.  
 https://js13kgames.com/
 
 ### Author
-Asisa Asseily
+Asisa Asseily  
 https://github.com/asisaa
 
 **Contribution**
-Idea session, debugging support and development of the background
-Timo Schuhmacher
-https://github.com/tschuhmacher
+Idea session, debugging support and development of the background. Timo Schuhmacher - https://github.com/tschuhmacher
 
 ### My Story
 Some people dream of writing there own book, or starting there own blog,
