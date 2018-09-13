@@ -12,8 +12,8 @@ Start game: "enter"
 Navigation: Use the "arrow keys" to navigate Bo
 Pause game: "p"
 
-Collect the "dot-face" items to change Bos color.
-Collect the "pixel" items in Bos color to increase your score.
+Collect the "RGB-dots" to change Bos color.
+Collect the "RGB-pixel" items in Bos color to increase your score.
 
 WON (Bo can go offline): Score => 100
 GAME OVER (Bo has to stay in the screen): Score =< -50
