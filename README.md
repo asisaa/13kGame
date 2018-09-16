@@ -1,4 +1,7 @@
 # BO THE DOG
+
+![Bo the dog](pics/Bo-the-dog-400x250.png)
+
 A 13kb javascript game for fun and learning.
 
 ### Bos story

@@ -1,5 +1,8 @@
 # Sometimes it get's woof - But you have to be even woofer!
 
+![Bo the dog](pics/Bo-the-dog-400x250.png)
+
+
 ## How I started
 It was during my vacation end of August, when I heard about the js13kGame challenge. I love to travel, but this vacation I decided to develop my first game.
 
