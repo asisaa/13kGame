@@ -42,15 +42,15 @@ Some people dream of writing there own book, or starting there own blog,
 I always wanted to develop my own game. This vacation I decided to make my dream come true.
 In the beginning I was not sure where to start, which language to learn or
 how to make sound or a simple game loop.
-Then I heared about the 13kb challenge. The challenge had already started
-but I decided to start anyway. And this was the best decision ever!
+Then I heard about the 13kb challenge. The challenge had already started
+but I decided to start anyway. And this was the best decision ever! Read more in my [postmortem](postmortem.md)
 
 **Enjoy playing "Bo the Dog"!**
 
 ### License
 This project is licensed under the MIT License - see the LICENSE.txt file for details
 
-### Ackowlegment
+### Acknowledgment
 
 **THANK YOU**
 - Andrzej Mazur for running the competition
