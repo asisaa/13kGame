@@ -30,4 +30,4 @@ At the end, I was definitely getting a bit low on time. There wasn't any time to
 With what I learned, now I feel ready to add more levels to my game or bring "Bo the dog" to his next adventure.
 
 #### 5. Do it!
-What ever you dream of doing in your live, even if you are a totally beginner, do it! I had so much fun developing this game and I feel full of energy for more.
+What ever you dream of doing in your live, even if you are a totally beginner, do it! I had so much fun developing this game and I feel full of energy for more.  Read more in my [README](README.md)
